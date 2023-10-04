@@ -45,6 +45,10 @@ jobs:
           echo "SENDER_EMAIL=${{ vars.SENDER_EMAIL }}"
           echo "RECEIVER_EMAIL=${{ vars.RECEIVER_EMAIL }}"
 
+      - name: Add certificate
+        run: |
+          curl --create-dirs -o $HOME/.postgresql/root.crt 'https://cockroachlabs.cloud/clusters/f4805c6c-d937-4e7b-8881-b83e71cc8fba/cert'
+      
       - name: Run
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
