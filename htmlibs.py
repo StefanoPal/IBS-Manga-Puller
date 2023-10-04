@@ -12,7 +12,7 @@ import pandas as pd
 
 load_dotenv()
 
-print(os.environ)
+print(os.environ['SMTP_SERVER'], os.environ['SENDER_EMAIL'], os.environ['RECEIVER_EMAIL'], os.environ['ROOT_URL'], os.environ['SEARCH_URL'])
 port = 587  # For starttls
 smtp_server = os.environ['SMTP_SERVER']
 sender_email = os.environ['SENDER_EMAIL']
@@ -73,8 +73,7 @@ print(numeropag)
 #numeropag = int(lista2[0].split()[1])
 # Goes through all the pages, requesting them and putting titles and urls (removing query strings) as tuple (title, url) in the "extractedtitles" list
 for enum in list(range(1, numeropag + 1)):
-    page = requests.get(
-        f'https://www.ibs.it/occasioni/libri?filterDepartment=Fumetti+e+graphic+novels&products_per_page=100&sortTitle_sortable=asc&page={enum}')
+    page = requests.get(f'{os.environ["SEARCH_URL"]}&page={enum}')
     soup = BeautifulSoup(page.text, "html.parser")
     titleElements = soup.find(
         "div", class_="cc-listing-items").find_all(class_="cc-product-list-item")
