@@ -12,7 +12,7 @@ import pandas as pd
 
 load_dotenv()
 
-
+print(os.environ)
 port = 587  # For starttls
 smtp_server = os.environ['SMTP_SERVER']
 sender_email = os.environ['SENDER_EMAIL']
