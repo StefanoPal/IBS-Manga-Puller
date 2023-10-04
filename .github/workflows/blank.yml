@@ -42,5 +42,10 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          SMTP_SERVER: ${{ env.SMTP_SERVER }}
+          ROOT_URL: ${{ env.ROOT_URL }}
+          SEARCH_URL: ${{ env.SEARCH_URL }}
+          SENDER_EMAIL: ${{ env.SENDER_EMAIL }}
+          RECEIVER_EMAIL: ${{ env.RECEIVER_EMAIL }}
         run: |
           python htmlibs.py  # Command to run your tests
