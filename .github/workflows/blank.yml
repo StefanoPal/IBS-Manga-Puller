@@ -20,16 +20,6 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-      SMTP_SERVER: ${{ env.SMTP_SERVER }}
-      ROOT_URL: ${{ env.ROOT_URL }}
-      SEARCH_URL: ${{ env.SEARCH_URL }}
-      SENDER_EMAIL: ${{ env.SENDER_EMAIL }}
-      RECEIVER_EMAIL: ${{ env.RECEIVER_EMAIL }}
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -46,7 +36,25 @@ jobs:
           python -m pip install --upgrade pip  # Upgrades pip to the latest version
           pip install -r requirements.txt  # Installs project dependencies from requirements.txt
 
+      - name: Echo Vars
+        run: |
+          echo "ROOT_URL=${{ env.ROOT_URL }}"
+          echo "SMTP_SERVER=${{ env.SMTP_SERVER }}"
+          echo "SEARCH_URL=${{ env.SEARCH_URL }}"
+          echo "ROOT_URL=${{ env.ROOT_URL }}"
+          echo "SENDER_EMAIL=${{ env.SENDER_EMAIL }}"
+          echo "RECEIVER_EMAIL=${{ env.RECEIVER_EMAIL }}"
 
       - name: Run
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          SMTP_SERVER: ${{ env.SMTP_SERVER }}
+          ROOT_URL: ${{ env.ROOT_URL }}
+          SEARCH_URL: ${{ env.SEARCH_URL }}
+          SENDER_EMAIL: ${{ env.SENDER_EMAIL }}
+          RECEIVER_EMAIL: ${{ env.RECEIVER_EMAIL }}
+          
         run: |
           python htmlibs.py  # Command to run your tests
