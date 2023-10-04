@@ -90,7 +90,7 @@ for enum in list(range(1, numeropag + 1)):
 # Converts extracted titles and urls in a pandas dataframe, and saves it as csv
 extractedDataframe = pd.DataFrame(extractedtitles, columns=["title", "url"])
 # extractedDataframe.to_csv('/home/pi/Desktop/Ibs/fumetti.csv', encoding='utf-8')
-affected_rows = extractedDataframe.to_sql(name='ibs_manga', con=engine, if_exists='append', index=False)
+affected_rows = extractedDataframe.to_sql(name='ibs_manga', con=engine, if_exists='replace', index=False)
 # print(extractedDataframe)
 print(affected_rows)
 
@@ -98,7 +98,7 @@ print(affected_rows)
 newcomicsList = sorted(list(set(extractedtitles) - set(lastfumlist)), key=lambda x: x[0])
 newcomicsDF = pd.DataFrame(newcomicsList, columns=["title", "url"])
 # newcomicsList.to_csv('/home/pi/Desktop/Ibs/Nuovi_fum.csv', encoding='utf-8')
-affected_rows = newcomicsDF.to_sql(name='ibs_manga_new', con=engine, if_exists='append', index=False)
+affected_rows = newcomicsDF.to_sql(name='ibs_manga_new', con=engine, if_exists='replace', index=False)
 
 # print(newcomicsList)
 print(affected_rows)
