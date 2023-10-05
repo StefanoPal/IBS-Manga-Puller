@@ -118,13 +118,14 @@ if not newcomicsDF.empty:
         messaggioemail = messaggioemail + \
             row["title"] + " - " + row["url"] + "\n"
         # Builds the telegram message by using MarkdownV2 (https://core.telegram.org/bots/api#formatting-options) and escaping the characters in titles and urls as required
-        previous_telegram_message = telegram_message
-        telegram_message += "[{}]({})\n".format(re.sub(telegramTitleEscape, r'\\\1',
-                                                   row["title"]), re.sub(telegramUrlEscape, r'\\\1', row["url"]))
+        link_to_append = "[{}]({})\n".format(re.sub(telegramTitleEscape, r'\\\1', row["title"]), re.sub(telegramUrlEscape, r'\\\1', row["url"]))
         
-        if(len(telegram_message) > 4096):
-            telegram_messages.append(previous_telegram_message)
-            telegram_message = ''
+        if(len(telegram_message + link_to_append) > 4096):
+            telegram_messages.append(telegram_message)
+            telegram_message = link_to_append
+            
+        else:
+            telegram_message += link_to_append
         
         
 telegram_messages.append(telegram_message)
