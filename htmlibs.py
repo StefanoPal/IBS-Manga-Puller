@@ -18,7 +18,6 @@ smtp_server = os.environ['SMTP_SERVER']
 sender_email = os.environ['SENDER_EMAIL']
 receiver_email = os.environ['RECEIVER_EMAIL']
 password = os.environ['MAIL_PASSWORD']
-#password = "Stefano2001.2020!"
 root = os.environ['ROOT_URL']
 
 def telegram_bot_sendtext(bot_message):
