@@ -20,6 +20,19 @@ receiver_email = os.environ['RECEIVER_EMAIL']
 password = os.environ['MAIL_PASSWORD']
 root = os.environ['ROOT_URL']
 
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    "Upgrade-Insecure-Requests": "1",
+    "Cache-Control": "max-age=0"
+}
+
+s = requests.Session()
+s.headers.update(headers)
+
 def telegram_bot_sendtext(bot_message):
 
     bot_token = os.environ['BOT_TOKEN']
@@ -27,13 +40,13 @@ def telegram_bot_sendtext(bot_message):
     send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + \
         bot_chatID + '&parse_mode=MarkdownV2&text=' + \
         urllib.parse.quote(bot_message)
-    response = requests.get(send_text)
+    response = s.get(send_text)
     return response.json()
 
 
 # telegram_bot_sendtext("Stefano&company")
 context = ssl.create_default_context()
-page = requests.get(os.environ['SEARCH_URL'])
+page = s.get(os.environ['SEARCH_URL'])
 soup = BeautifulSoup(page.text, "html.parser")
 # filename = "nuovi_fum.csv"
 # titles = soup.find("div", class_="cc-listing-items").find_all(class_="cc-product-list-item")
@@ -72,7 +85,8 @@ print(numeropag)
 #numeropag = int(lista2[0].split()[1])
 # Goes through all the pages, requesting them and putting titles and urls (removing query strings) as tuple (title, url) in the "extractedtitles" list
 for enum in list(range(1, numeropag + 1)):
-    page = requests.get(f'{os.environ["SEARCH_URL"]}&page={enum}')
+    page = s.get(f'{os.environ["SEARCH_URL"]}&page={enum}')
+    print(page.text)
     soup = BeautifulSoup(page.text, "html.parser")
     elementsList = soup.find("div", class_="cc-listing-items")
     print(elementsList)
