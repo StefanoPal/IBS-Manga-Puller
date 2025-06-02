@@ -47,6 +47,7 @@ def telegram_bot_sendtext(bot_message):
 # telegram_bot_sendtext("Stefano&company")
 context = ssl.create_default_context()
 page = s.get(os.environ['SEARCH_URL'])
+print(page.text)
 soup = BeautifulSoup(page.text, "html.parser")
 # filename = "nuovi_fum.csv"
 # titles = soup.find("div", class_="cc-listing-items").find_all(class_="cc-product-list-item")
