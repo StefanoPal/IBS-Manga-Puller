@@ -74,9 +74,11 @@ print(numeropag)
 for enum in list(range(1, numeropag + 1)):
     page = requests.get(f'{os.environ["SEARCH_URL"]}&page={enum}')
     soup = BeautifulSoup(page.text, "html.parser")
-    titleElements = soup.find(
-        "div", class_="cc-listing-items").find_all(class_="cc-product-list-item")
-        
+    elementsList = soup.find("div", class_="cc-listing-items")
+    print(elementsList)
+    titleElements = elementsList.find_all(class_="cc-product-list-item")
+    print(titleElements)
+    print(enum)
     print(len(titleElements))
     for div in titleElements:
         # print(div.a)
