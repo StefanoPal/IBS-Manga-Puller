@@ -66,7 +66,7 @@ print(df)
 
 # Gets the number of pages
 numeropag = int(
-    soup.find(class_="cc-plp-pagination").ul.find_all("li")[-1].text.strip())
+    soup.find(class_="cc-content-pages").find("ul").find_all("li", _class="cc-page-number")[-1].text.strip())
 print(numeropag)
 
 #numeropag = int(lista2[0].split()[1])
